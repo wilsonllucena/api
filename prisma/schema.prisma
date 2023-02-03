@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id         Int          @id @default(autoincrement())
+  email      String       @unique
+  name       String?
+  document   String?      @unique
+  password   String?
+  role       Role?        @default(USER)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  UserTenant UserTenant[]
+
+  @@map("accounts")
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+  USER_CUSTOMER
+  USER
+}
+
+model Tenant {
+  id         Int          @id @default(autoincrement())
+  name       String?
+  schema     String       @unique
+  slug       String       @unique
+  status     Status       @default(ACTIVE)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  UserTenant UserTenant[]
+
+  @@map("tenants")
+}
+
+model UserTenant {
+  id        Int      @id @default(autoincrement())
+  accountId Int
+  tenantId  Int
+  account   Account  @relation(fields: [accountId], references: [id])
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user_tenants")
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+}

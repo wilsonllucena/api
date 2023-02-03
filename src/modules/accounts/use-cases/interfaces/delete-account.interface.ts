@@ -1,0 +1,7 @@
+import { AccountResponse } from './account-either.interface';
+
+type DeleteAccount = {
+  execute(id: number): Promise<AccountResponse>;
+};
+
+export { DeleteAccount };
