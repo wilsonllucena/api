@@ -1,4 +1,3 @@
-
 // Either é um padrão de projeto que pode ser usado para representar um valor que pode ser válido ou inválido.
 // O Left é usado para representar um erro e o Right é usado para representar um valor válido.
 export class Left<L, R> {
