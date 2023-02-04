@@ -43,6 +43,7 @@ container.registerSingleton<DeleteAccount>(
   DeleteAccountUseCase
 );
 
+// Authentication
 container.registerSingleton<Authenticate>('Authenticate', AuthenticateUseCase);
-
+// HashProvider
 container.registerSingleton<HashProvider>('HashProvider', BCryptHashProvider);

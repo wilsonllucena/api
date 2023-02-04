@@ -9,7 +9,7 @@ import {
   Authenticate,
   AuthResponse,
 } from './interfaces/authenticate.interface';
-import { left, right } from '@src/shared/errors/either';
+import { left, right } from '@src/shared/exception/either';
 
 interface IRequest {
   email: string;

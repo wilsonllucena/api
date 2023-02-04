@@ -1,4 +1,4 @@
-import { left, right } from '@src/shared/errors/either';
+import { left, right } from '@src/shared/exception/either';
 import { AppError } from '@src/shared/util/app-error';
 import { httpStatus } from '@src/shared/util/http-status-code';
 import { inject, injectable } from 'tsyringe';
