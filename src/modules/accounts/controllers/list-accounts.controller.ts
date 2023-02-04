@@ -1,3 +1,4 @@
+import logger from '@src/shared/logger';
 import { inject } from 'tsyringe';
 import { success } from '../../../shared/helpers';
 import {
@@ -12,7 +13,9 @@ export class ListAccountsController implements BaseController {
   ) {}
 
   async handle(): Promise<HttpResponse> {
+    logger.info('ListAccountsController.handle: initiating');
     const result = await this.listAccountsUseCase.execute();
+    logger.info('ListAccountsController.handle: finished');
     return success(result);
   }
 }

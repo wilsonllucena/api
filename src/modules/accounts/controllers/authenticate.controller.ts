@@ -1,4 +1,5 @@
 import { badRequest, success } from '@src/shared/helpers';
+import logger from '@src/shared/logger';
 import {
   BaseController,
   HttpRequest,
@@ -14,6 +15,8 @@ export class AuthController implements BaseController {
   ) {}
 
   public async handle(request: HttpRequest): Promise<HttpResponse> {
+    logger.info('AuthController.handle: initiating authentication');
+
     const { email, password } = request.body;
 
     const response = await this.authenticateUserService.execute({
@@ -26,7 +29,7 @@ export class AuthController implements BaseController {
     }
 
     const { user, token } = response.value;
-
+    logger.info('AuthController.handle: finished');
     return success({ user: user, token });
   }
 }

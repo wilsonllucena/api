@@ -1,42 +1,52 @@
 import { AccountPrismaRepository } from '@src/modules/accounts/repositories/account.prisma.repository';
 import { Request, Response, NextFunction } from 'express';
 import authConfig from '@src/config/auth';
-
 import { verify } from 'jsonwebtoken';
 import { container } from 'tsyringe';
-import { AppError } from '../util/app-error';
-interface IPayload {
-  sub: number;
+import { httpStatus } from '../util/http-status-code';
+import logger from '../logger';
+interface Payload {
+  sub: string;
 }
+
 export async function ensureAuthenticated(
   request: Request,
   response: Response,
   next: NextFunction
-) {
+): Promise<any> {
   const authHeader = request.headers.authorization;
   const { secret } = authConfig.jwt;
   if (!authHeader) {
-    throw new AppError('Token missing');
+    return response.status(httpStatus.UNAUTHORIZED).json({
+      message: 'Token is missing',
+    });
   }
 
   const [, token] = authHeader.split(' ');
 
   try {
-    const { sub: user_id } = verify(token, secret) as any;
+    logger.info('Verifying token');
+    const { sub: user_id } = verify(token, secret) as Payload;
 
     const userRepository = container.resolve(AccountPrismaRepository);
-    const user = await userRepository.findById(+user_id);
+    const user = await userRepository.findById(Number(user_id));
 
     if (!user) {
-      throw new AppError('User does not exists');
+       logger.error('User does not exists');
+        return response.status(httpStatus.UNAUTHORIZED).json({
+          message: 'User does not exists',
+        });
     }
 
     request.user = {
-      id: user_id,
+      id: Number(user_id),
     };
-
+    logger.info('Token verified');
     next();
   } catch {
-    throw new AppError('Invalid token');
+    logger.error('Invalid token');
+    return response.status(httpStatus.UNAUTHORIZED).json({
+      message: 'Invalid token',
+    });
   }
 }

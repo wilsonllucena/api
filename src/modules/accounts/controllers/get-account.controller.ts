@@ -7,6 +7,7 @@ import {
   HttpResponse,
 } from '../../../shared/protocols';
 import { GetAccount } from '../use-cases/interfaces/get-account.interface';
+import logger from '@src/shared/logger';
 
 export class GetAccountController implements BaseController {
   constructor(
@@ -14,6 +15,7 @@ export class GetAccountController implements BaseController {
   ) {}
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
+    logger.info('GetAccountController.handle: initiating');
     const { params } = request;
     const { id } = params;
     const response = await this.getAccountUseCase.execute(Number(id));
@@ -21,6 +23,7 @@ export class GetAccountController implements BaseController {
     if (response.isLeft()) {
       return badRequest(response.value);
     }
+    logger.info('GetAccountController.handle: finished');
     return success(response.value, httpStatus.OK);
   }
 }

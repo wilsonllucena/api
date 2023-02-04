@@ -1,4 +1,6 @@
+import logger from '@src/shared/logger';
 import { httpStatus } from '@src/shared/util/http-status-code';
+import { lookup } from 'dns';
 import { inject } from 'tsyringe';
 import { badRequest, success } from '../../../shared/helpers';
 import {
@@ -15,12 +17,14 @@ export class UpdateAccountController implements BaseController {
   ) {}
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
+    logger.info('UpdateAccountController.handle: initiating');
     const { params, body } = request;
     const { id } = params;
     const response = await this.updateAccountUseCase.execute(Number(id), body);
     if (response.isLeft()) {
       return badRequest(response.value);
     }
+    logger.info('UpdateAccountController.handle: finished');
     return success(response.value, httpStatus.OK);
   }
 }

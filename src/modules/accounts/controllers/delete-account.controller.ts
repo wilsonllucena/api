@@ -7,6 +7,7 @@ import {
   HttpResponse,
 } from '../../../shared/protocols';
 import { DeleteAccount } from '../use-cases/interfaces/delete-account.interface';
+import logger from '@src/shared/logger';
 
 export class DeleteAccountController implements BaseController {
   constructor(
@@ -15,6 +16,7 @@ export class DeleteAccountController implements BaseController {
   ) {}
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
+    logger.info('DeleteAccountController.handle: initiating');
     const { params } = request;
     const { id } = params;
     const response = await this.deleteAccountUseCase.execute(Number(id));
@@ -22,6 +24,7 @@ export class DeleteAccountController implements BaseController {
     if (response.isLeft()) {
       return badRequest(response.value);
     }
+    logger.info('DeleteAccountController.handle: finished');
     return success(response.value, httpStatus.NO_CONTENT);
   }
 }
