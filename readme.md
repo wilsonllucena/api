@@ -1,8 +1,7 @@
 
-# NODE-START
+# EVENHUB
 
-start de projetos em nodejs 
-
+SISTEMA GERENCIMANETO DE EVENTOS 
 
 
 ## Installation
@@ -10,8 +9,8 @@ start de projetos em nodejs
 Install project with npm
 
 ```bash
-  git clone https://github.com/wilsonllucena/node-express-api
-  cd node-express-api
+  git clone https://github.com/wilsonllucena/api
+  cd api
   npm install 
 
 ```
