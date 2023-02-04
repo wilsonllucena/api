@@ -17,6 +17,10 @@ import HashProvider from '@src/modules/accounts/providers/hashprovider.interface
 import BCryptHashProvider from '@src/modules/accounts/providers/bcrypt-hash-provider';
 import { Authenticate } from '@src/modules/accounts/use-cases/interfaces/authenticate.interface';
 import AuthenticateUseCase from '@src/modules/accounts/use-cases/authenticate.usecase';
+import { TenantRepository } from '@src/modules/tenant/repositories/tenant.interface.repository';
+import { TenantPrismaRepository } from '@src/modules/tenant/repositories/tenant.prisma.repository';
+import { CreateTenant } from '@src/modules/tenant/use-cases/interface/create-tenant.interface';
+import { CreateTenantUseCase } from '@src/modules/tenant/use-cases/create-tenant.usecase';
 
 // Prisma
 container.registerSingleton<PrismaClient>('PrismaClient', PrismaClient);
@@ -25,6 +29,11 @@ container.registerSingleton<PrismaClient>('PrismaClient', PrismaClient);
 container.registerSingleton<AccountRepository>(
   'AccountRepository',
   AccountPrismaRepository
+);
+
+container.registerSingleton<TenantRepository>(
+  'TenantRepository',
+  TenantPrismaRepository
 );
 
 // UseCase
@@ -42,6 +51,9 @@ container.registerSingleton<DeleteAccount>(
   'DeleteAccount',
   DeleteAccountUseCase
 );
+
+// Tenant
+ container.registerSingleton<CreateTenant>('CreateTenant', CreateTenantUseCase);  
 
 // Authentication
 container.registerSingleton<Authenticate>('Authenticate', AuthenticateUseCase);

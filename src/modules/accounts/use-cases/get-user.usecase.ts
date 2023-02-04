@@ -3,7 +3,7 @@ import { AppError } from '@src/shared/util/app-error';
 import { httpStatus } from '@src/shared/util/http-status-code';
 import { inject, injectable } from 'tsyringe';
 import { AccountRepository,  } from '../repositories/account-repository.interface';
-import { AccountResponse } from './interfaces/account-either.interface';
+import { AccountResponse } from '../either/account-either.interface';
 import { GetAccount } from './interfaces/get-account.interface';
 
 @injectable()

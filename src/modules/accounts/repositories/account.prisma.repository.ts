@@ -1,4 +1,3 @@
-import { Account } from '@prisma/client';
 import PrismaService from '@src/shared/database/prismaClient';
 import { injectable } from 'tsyringe';
 import { AccountDTO, CreateAccountDTO, UpdateAccountDTO, UserDTO } from '../dtos/accounts.dto';
@@ -56,6 +55,9 @@ export class AccountPrismaRepository implements AccountRepository {
         password: false,
         role: true,
         createdAt: true,
+      },
+      orderBy: {
+        id: 'asc',
       },
     });
   }

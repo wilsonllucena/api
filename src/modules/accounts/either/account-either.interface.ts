@@ -1,5 +1,5 @@
 import { Either } from '@src/shared/exception/either';
-import { AccountDTO } from '../../dtos/accounts.dto';
+import { AccountDTO } from '../dtos/accounts.dto';
 
 type AccountID= {
   id: number;

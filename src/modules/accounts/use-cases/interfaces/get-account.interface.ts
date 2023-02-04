@@ -1,4 +1,4 @@
-import { AccountResponse } from './account-either.interface';
+import { AccountResponse } from '../../either/account-either.interface';
 
 type GetAccount = {
   execute(id: number): Promise<AccountResponse>;

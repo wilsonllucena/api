@@ -5,7 +5,7 @@ import { inject, injectable } from 'tsyringe';
 import { UpdateAccountDTO } from '../dtos/accounts.dto';
 import HashProvider from '../providers/hashprovider.interface';
 import { AccountRepository } from '../repositories/account-repository.interface';
-import { AccountResponse } from './interfaces/account-either.interface';
+import { AccountResponse } from '../either/account-either.interface';
 import { UpdateAccount } from './interfaces/update-account.interface';
 
 @injectable()
