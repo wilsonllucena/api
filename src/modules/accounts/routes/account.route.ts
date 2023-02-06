@@ -12,7 +12,7 @@ import {
 export default (router: Router): void => {
   router.get('/accounts', ensureAuthenticated, adapterRoute(makeListAccountController()));
   router.get('/account/:id',ensureAuthenticated, adapterRoute(makeGetAccountController()));
-  router.post('/account',ensureAuthenticated, adapterRoute(makeCreateAcccountController()));
+  router.post('/account', adapterRoute(makeCreateAcccountController()));
   router.patch('/account/:id',ensureAuthenticated, adapterRoute(makeUpdateAccountController()));
   router.delete(
     '/account/:id',
