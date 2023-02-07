@@ -15,6 +15,6 @@ export class CreateTenantController implements BaseController {
       +accountId
     );
 
-    return success(response)
+    return success(response.value)
   }
 }

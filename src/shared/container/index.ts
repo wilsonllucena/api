@@ -21,6 +21,8 @@ import { TenantRepository } from '@src/modules/tenant/repositories/tenant.interf
 import { TenantPrismaRepository } from '@src/modules/tenant/repositories/tenant.prisma.repository';
 import { CreateTenant } from '@src/modules/tenant/use-cases/interface/create-tenant.interface';
 import { CreateTenantUseCase } from '@src/modules/tenant/use-cases/create-tenant.usecase';
+import { ListTenants } from '@src/modules/tenant/use-cases/interface/list-tenant.interface';
+import { ListTenantUseCase } from '@src/modules/tenant/use-cases/list-tenant.usecase';
 
 // Prisma
 container.registerSingleton<PrismaClient>('PrismaClient', PrismaClient);
@@ -54,6 +56,7 @@ container.registerSingleton<DeleteAccount>(
 
 // Tenant
  container.registerSingleton<CreateTenant>('CreateTenant', CreateTenantUseCase);  
+ container.registerSingleton<ListTenants>('ListTenants', ListTenantUseCase);  
 
 // Authentication
 container.registerSingleton<Authenticate>('Authenticate', AuthenticateUseCase);

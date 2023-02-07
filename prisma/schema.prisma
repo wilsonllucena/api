@@ -33,7 +33,7 @@ model Tenant {
   name       String?
   schema     String       @unique
   slug       String       @unique
-  status     Status       @default(ACTIVE)
+  status     Status?       @default(ACTIVE)
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
   userTenant UserTenant[]

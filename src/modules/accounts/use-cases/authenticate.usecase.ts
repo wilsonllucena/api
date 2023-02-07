@@ -10,6 +10,7 @@ import {
   AuthResponse,
 } from './interfaces/authenticate.interface';
 import { left, right } from '@src/shared/exception/either';
+import { httpStatus } from '@src/shared/util/http-status-code';
 
 interface IRequest {
   email: string;
@@ -30,14 +31,14 @@ class AuthenticateUseCase implements Authenticate {
     const user = await this.accountRepository.findByEmail(email);
 
     if (!user) {
-      return left(new AppError('Incorret email/password combination', 401));
+      return left(new AppError('Email ou senha incorreta', httpStatus.UNAUTHORIZED));
     }
     const passwordMatched =
       user?.password &&
       (await this.hashProvider.compareHash(password, user?.password));
 
     if (!passwordMatched) {
-      return left(new AppError('Incorret email/password combination', 401));
+      return left(new AppError('Email ou senha incorreta', httpStatus.UNAUTHORIZED));
     }
 
     const { secret, expiresIn } = authConfig.jwt;

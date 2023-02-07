@@ -10,7 +10,11 @@ type TenantData = {
   tenant: Tenant;
 };
 
-type TenantBaseResponse = TenantId | TenantData | null;
+type Tenants = {
+  tenants: Tenant[];
+};
+
+type TenantBaseResponse = TenantId | Tenants | TenantData | null;
 
 type TenantResponse = Either<Error, TenantBaseResponse>;
 
